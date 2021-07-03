@@ -10,7 +10,7 @@ import time
 # Constants
 WIN_WIDTH = 1200
 WIN_HEIGHT = 800
-FRAMERATE = 240
+FRAMERATE = 480
 ICON_IMG = pygame.image.load(os.path.join("imgs", "icon.png"))
 
 # Pygame Setup
@@ -106,8 +106,8 @@ def draw(canvas, indexes):
         for j in range(-1, 2):
             row = indexes[0] + i
             col = indexes[1] + j
-            if 0 <= row < 28 and 0 <= col < 28:
-                canvas[row][col] += (1 - canvas[row][col]) / 2
+            if 0 <= row < 28 and 0 <= col < 28 and canvas[row][col] != 1:
+                canvas[row][col] += (1 - canvas[row][col]) / 4
     canvas[indexes[0]][indexes[1]] = 1
 
 def erase(canvas, indexes):
@@ -156,6 +156,8 @@ if __name__ == '__main__':
                     canvas = [[nextInput[(28 * i) + j] for j in range(28)] for i in range(28)]
                     resultText, certaintyText = predict(canvas)
                     dataIndex += 1
+                    
+        resultText, certaintyText = predict(canvas)
 
         mousePos = pygame.mouse.get_pos()
 
