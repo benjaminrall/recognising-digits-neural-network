@@ -73,10 +73,19 @@ def draw_plot(i):
 
 # Variables
 running = True
-with open("handwriting/inputs.data", "rb") as f:
-    inputs = pickle.load(f)
-with open("handwriting/outputs.data", "rb") as f:
-    outputs = pickle.load(f)
+try:
+    with open("handwriting/inputs.data", "rb") as f:
+        inputs = pickle.load(f)
+    with open("handwriting/outputs.data", "rb") as f:
+        outputs = pickle.load(f)
+except:
+    print("failed to load from file, loading from dataset")
+    from tensorflow.keras.datasets import mnist
+    (train_x, train_y), (test_x, test_y) = mnist.load_data()
+    n = int(input("How much testing data to load: "))
+    inputs = []
+    for input in train_x[:n]:
+        inputs.append([ input[i][j] / 255 for i in range(28) for j in range(28) ])
 #train(inputs[:1875], outputs[:1875], True)
 #exit()
 canvas = [[0 for i in range(28)] for j in range(28)]
