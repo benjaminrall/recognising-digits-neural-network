@@ -8,8 +8,8 @@ import numpy as np
 import time
 
 # Constants
-WIN_WIDTH = 1200
-WIN_HEIGHT = 800
+WIN_WIDTH = 900
+WIN_HEIGHT = 650
 FRAMERATE = 480
 ICON_IMG = pygame.image.load(os.path.join("imgs", "icon.png"))
 
@@ -18,10 +18,10 @@ win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("Digit Recognition")
 pygame.display.set_icon(ICON_IMG)
 clock = pygame.time.Clock()
-drawingSize = 22
+drawingSize = 18
 drawingSurface = pygame.Surface((28 * drawingSize, 28 * drawingSize))
 pygame.font.init()
-font = pygame.font.SysFont("georgia", 40)
+font = pygame.font.SysFont("georgia", 30)
 resultText = font.render("Result: ", True, (0, 0, 0))
 certaintyText = font.render("Certainty: ", True, (0, 0, 0))
 
@@ -65,6 +65,11 @@ def setup_testing(n):
         for j in range(len(test_inputs[i])):
             test_inputs[i][j] /= 255
     return test_inputs, test_outputs
+
+test_inputs, test_outputs = setup_testing(100)
+startTime = time.time()
+network.test_network(test_inputs, test_outputs, True)
+print("{:>14s}".format(f"{int(round(time.time() - startTime, 1))} seconds"))
 
 def draw_plot(i):
     pyplot.subplot(335)
@@ -182,6 +187,6 @@ if __name__ == '__main__':
         drawingSurface.fill((255, 255, 255))
         draw_canvas(canvas, drawingSurface, drawingSize)
         win.blit(drawingSurface, ((WIN_HEIGHT // 2) - (drawingSurface.get_height() // 2), (WIN_HEIGHT // 2) - (drawingSurface.get_height() // 2)))
-        win.blit(resultText, (800, 100))
-        win.blit(certaintyText, (800, 150))
+        win.blit(resultText, (600, 100))
+        win.blit(certaintyText, (600, 150))
         pygame.display.update()
