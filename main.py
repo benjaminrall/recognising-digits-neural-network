@@ -170,6 +170,8 @@ if __name__ == '__main__':
                     canvas = [[nextInput[(28 * i) + j] for j in range(28)] for i in range(28)]
                     resultText, certaintyText = predict(canvas)
                     dataIndex += 1
+                elif event.key == pygame.K_r:
+                    canvas = [[0 for i in range(28)] for j in range(28)]
                     
         resultText, certaintyText = predict(canvas)
 
