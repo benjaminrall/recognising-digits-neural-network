@@ -20,3 +20,5 @@ class Layer:
             self.weights = create_empty_matrix(0, 0)
             self.biases = create_empty_matrix(0, 0)
         self.gradients = [ 0 for i in range(size)]
+
+    
